@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <h1 class="text-white mb-3">Страница не найдена</h1>
+    <p><a class="text-white" href="{% url 'index' %}">Главная страница</a></p>
+</div>
+{% endblock content %}
