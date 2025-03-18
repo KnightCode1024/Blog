@@ -1,2 +1,4 @@
 -r prod.txt
 -r test.txt
+django-extensions==3.2.3
+Werkzeug==3.1.3

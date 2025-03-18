@@ -13,4 +13,9 @@ urlpatterns = [
         views.post,
         name="post",
     ),
+    path(
+        "category/<int:cat_id>",
+        views.category,
+        name="category",
+    ),
 ]

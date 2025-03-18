@@ -23,7 +23,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Django libs
+    #  Developers Apps
     "blog.apps.BlogConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -36,6 +39,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+if DEBUG:
+    INSTALLED_APPS += ["django_extensions"]
+
 ROOT_URLCONF = "main.urls"
 
 TEMPLATES = [
@@ -44,7 +50,7 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "templates",
         ],
-        "APP_DIRS": False,
+        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -70,26 +76,25 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": (
+            "django.contrib.auth.password_validation"
+            ".UserAttributeSimilarityValidator"
+        ),
+    },
+    {
+        "NAME": (
+            "django.contrib.auth.password_validation." "MinimumLengthValidator"
+        ),
+    },
+    {
+        "NAME": (
             "django.contrib.auth.password_validation."
-            "UserAttributeSimilarityValidator"
+            "CommonPasswordValidator"
         ),
     },
     {
         "NAME": (
-            "django.contrib.auth.password_validation.",
-            "MinimumLengthValidator",
-        ),
-    },
-    {
-        "NAME": (
-            "django.contrib.auth.password_validation.",
-            "CommonPasswordValidator",
-        ),
-    },
-    {
-        "NAME": (
-            "django.contrib.auth.password_validation.",
-            "NumericPasswordValidator",
+            "django.contrib.auth.password_validation."
+            "NumericPasswordValidator"
         ),
     },
 ]
