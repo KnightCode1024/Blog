@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django import http
+
+from blog.models import Post
 
 
 cats_db = [
@@ -15,26 +18,19 @@ def index(request):
     return render(request, "index.html")
 
 
+# TO DO: post and about views funcion dont DRY
 def about(request):
-    data = {
-        "title": "Об авторе",
-        "author_name": "Кирилл Никитин",
-        "text": "Какой-то текст об авторе",
-    }
-    return render(request, "about.html", data)
+    post = get_object_or_404(Post, slug="founder")
+    return render(request, "post.html", {"post": post})
 
 
-def post(request, post_id):
-    data = {
-        "title": "Пост об разработчике",
-        "content": "Что-то делал. Как-то учился. И докатился",
-        "author": "Основатель",
-    }
-    return render(request, "post.html", data)
+def post(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
+    return render(request, "post.html", {"post": post})
 
 
 def page_not_found(request, exeption):
-    return render(request, "404.html", status=404)
+    return render(request, "404.html", status=http.HTTP_404_NOT_FOUND)
 
 
 def category(request, cat_id):

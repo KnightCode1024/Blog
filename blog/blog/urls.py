@@ -9,7 +9,7 @@ urlpatterns = [
         name="about",
     ),
     path(
-        "post/<int:post_id>/",
+        "post/<slug:post_slug>/",
         views.post,
         name="post",
     ),
