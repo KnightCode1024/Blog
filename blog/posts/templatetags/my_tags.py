@@ -1,6 +1,6 @@
 from django import template
 
-from blog import views
+from posts import views
 
 register = template.Library()
 

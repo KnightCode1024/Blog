@@ -24,8 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Django libs
-    #  Developers Apps
-    "blog.apps.BlogConfig",
+    # Developers Apps
+    "posts.apps.PostsConfig",
     "users.apps.UsersConfig",
 ]
 
@@ -42,7 +42,7 @@ MIDDLEWARE = [
 if DEBUG:
     INSTALLED_APPS += ["django_extensions"]
 
-ROOT_URLCONF = "main.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
@@ -62,7 +62,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "main.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 DATABASES = {

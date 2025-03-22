@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django import http
 
-from blog.models import Post
+from posts.models import Post
 
 
 cats_db = [
@@ -15,7 +15,9 @@ cats_db = [
 
 
 def index(request):
-    return render(request, "index.html")
+    posts = Post.published.all()
+    data = {"posts": posts}
+    return render(request, "index.html", data)
 
 
 # TO DO: post and about views funcion dont DRY
