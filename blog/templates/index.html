@@ -6,14 +6,14 @@
     <h2 class="text-white">Посты</h2>
     <div class="container">
         <div class="row">
-            {% for p in posts %}
+            {% for post in posts %}
             <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <div class="card h-100">
-                    <img src="{% static 'img/not_photo.jpg' %}" class="card-img-top" alt="...">
+                    <img src="{% static 'img/not_photo.jpg' %}" class="card-img-top" alt="">
                     <div class="card-body">
-                        <h5 class="card-title">{{ p.title }}</h5>
-                        <p class="card-text">{{ p.summury }}</p>
-                        <a class="btn btn-outline-light me-2" href="{{ p.get_absolute_url }}">Читать</a>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.summury }}</p>
+                        <a class="btn btn-outline-light me-2" href="{{ post.get_absolute_url }}">Читать</a>
                     </div>
                 </div>
             </div>

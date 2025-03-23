@@ -17,6 +17,7 @@ class PostsAdmin(admin.ModelAdmin):
         "is_published",
     ]
     list_display_links = ["title"]
+    prepopulated_fields = {"slug": ("title",)}
 
     class Meta:
         verbose_name = "Пост"

@@ -16,13 +16,12 @@ cats_db = [
 
 def index(request):
     posts = Post.published.all()
-    data = {"posts": posts}
-    return render(request, "index.html", data)
+    return render(request, "index.html", {"posts": posts})
 
 
 # TO DO: post and about views funcion dont DRY
 def about(request):
-    post = get_object_or_404(Post, slug="founder")
+    post = get_object_or_404(Post, slug="osnovatel")
     return render(request, "post.html", {"post": post})
 
 

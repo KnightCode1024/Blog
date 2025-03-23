@@ -37,7 +37,7 @@ class Post(models.Model):
         auto_now=True,
     )
     is_published = models.BooleanField(
-        choices=Status.choices,
+        choices=Status,
         default=Status.PUBLISHED,
     )
     author = models.CharField(
@@ -56,7 +56,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("post", kwargs={"post_slug": self.slug})
+        return reverse("posts:post", kwargs={"post_slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
