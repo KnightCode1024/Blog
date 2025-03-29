@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load my_tags %}
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -10,6 +10,12 @@
                         <span class="card-text">{{ post.summury }}</span>
                         <p class="card-text">{{ post.content|linebreaks }}</p>
                     <div class="text-end mt-4 ">
+                        <div class="text-left mt-2">
+                            <a class="badge badge-primary card-text d-block text-decoration-none" href="{{ post.cat.get_absolute_url }}">{{ post.cat.name }}</a>
+                        </div>
+                        {% for tag in post.tags.all %}
+                            <a class="badge badge-primary card-text d-block text-left text-decoration-none" href="{{ tag.get_absolute_url }}">{{ tag.tag }}</a>
+                        {% endfor %}
                         <span class="">Автор: {{ post.author }}</span>
                     </div>
                 </div>

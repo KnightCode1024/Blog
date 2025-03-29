@@ -16,8 +16,13 @@ urlpatterns = [
         name="post",
     ),
     path(
-        "category/<int:cat_id>",
+        "category/<slug:cat_slug>/",
         views.category,
         name="category",
+    ),
+    path(
+        "tag/<slug:tag_slug>/",
+        views.tag,
+        name="tag",
     ),
 ]
