@@ -5,7 +5,7 @@ from posts.models import Post, Category, TagPost
 
 
 def index(request):
-    posts = Post.published.all()
+    posts = Post.published.all().select_related("cat").prefetch_related("tags")
     data = {
         "posts": posts,
     }
@@ -35,7 +35,11 @@ def page_not_found(request, exeption):
 
 def category(request, cat_slug):
     category = get_object_or_404(Category, slug=cat_slug)
-    posts = Post.published.filter(cat_id=category.pk)
+    posts = (
+        Post.published.filter(cat_id=category.pk)
+        .select_related("cat")
+        .prefetch_related("tags")
+    )
 
     data = {
         "title": f"Посты из категории: {category.name}",
@@ -46,11 +50,14 @@ def category(request, cat_slug):
 
 def tag(request, tag_slug):
     tag = get_object_or_404(TagPost, slug=tag_slug)
-    posts = tag.tags.filter(is_published=Post.Status.PUBLISHED)
+    posts = (
+        tag.tags.filter(is_published=Post.Status.PUBLISHED)
+        .select_related("cat")
+        .prefetch_related("tags")
+    )
 
     data = {
         "title": f"Посты с тегом: {tag.tag}",
         "posts": posts,
-        # "current_tag": tag
     }
     return render(request, "posts_by_tag.html", data)

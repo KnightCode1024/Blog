@@ -44,6 +44,13 @@ class Post(models.Model):
         max_length=50,
         blank=True,
     )
+    co_author = models.OneToOneField(
+        "Author",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="author"
+    )
     cat = models.ForeignKey(
         "Category",
         on_delete=models.PROTECT,
@@ -101,3 +108,15 @@ class TagPost(models.Model):
 
     def get_absolute_url(self):
         return reverse("posts:tag", kwargs={"tag_slug": self.slug})
+
+
+class Author(models.Model):
+    name = models.CharField(
+        max_length=100,
+    )
+    count_publish = models.IntegerField(
+        null=True,
+    )
+
+    def __str__(self):
+        return self.name
