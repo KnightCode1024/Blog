@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +25,15 @@
                             </div>
                             <button type="submit" class="btn btn-outline-light w-100">Войти</button>
                         </form>
+                        <div class="text-center">
+                            <a href="#"><img src="{% static 'img/vk.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'img/github.png' %}" alt=""></a>
+                        </div>
                         <div class="text-center mt-3">
                             <a href="#" class="text-white">Забыли пароль?</a>
                         </div>
                         <div class="text-center mt-2">
-                            <a href="register.html" class="text-white">Нет аккаунта? Зарегистрируйтесь</a>
+                            <a href="{% url 'users:register' %}" class="text-white">Нет аккаунта? Зарегистрируйтесь</a>
                         </div>
                     </div>
                 </div>

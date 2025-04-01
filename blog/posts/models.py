@@ -49,7 +49,7 @@ class Post(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="author"
+        related_name="author",
     )
     cat = models.ForeignKey(
         "Category",
@@ -116,6 +116,10 @@ class Author(models.Model):
     )
     count_publish = models.IntegerField(
         null=True,
+    )
+    citation_count = models.IntegerField(
+        blank=True,
+        default=0,
     )
 
     def __str__(self):

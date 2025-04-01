@@ -1,0 +1,593 @@
+[
+{
+  "model": "posts.post",
+  "pk": 1,
+  "fields": {
+    "title": "Почему ваш компьютер медленный? Он просто медитирует!",
+    "slug": "slow-pc",
+    "summury": "Узнайте, как ваш ПК использует замедление работы для достижения внутренней гармонии.",
+    "content": "Содержание (content):\r\nВаш компьютер не тормозит — он просто решил, что пришло время для медитации. Вместо того чтобы злиться, попробуйте присоединиться к нему. Закройте глаза, сделайте глубокий вдох и представьте, как ваш процессор достигает нирваны.",
+    "time_create": "2025-03-22T12:13:09.228Z",
+    "time_update": "2025-03-27T07:04:52.900Z",
+    "is_published": false,
+    "author": "Гуру IT-дзен",
+    "co_author": null,
+    "cat": 8,
+    "tags": [
+      2,
+      3,
+      5
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 2,
+  "fields": {
+    "title": "Как отличить программиста от нормального человека? Он спит с клавиатурой!",
+    "slug": "programer-or-people",
+    "summury": "Шуточное руководство по идентификации программистов в дикой природе.",
+    "content": "Программисты — это особый вид людей. Они спят с клавиатурой, едят пиццу прямо над ноутбуком и считают, что \"кофе — это основной источник энергии\". Если вы видите человека, который разговаривает с монитором, поздравляем — вы нашли программиста!",
+    "time_create": "2025-03-22T12:27:57.334Z",
+    "time_update": "2025-03-27T07:06:07.397Z",
+    "is_published": false,
+    "author": "Натуралист-айтишник",
+    "co_author": null,
+    "cat": 5,
+    "tags": [
+      2,
+      3,
+      6,
+      8,
+      9
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 3,
+  "fields": {
+    "title": "Почему видеокарты такие дорогие? Они просто плачут золотыми слезами!",
+    "slug": "not-by-gpu",
+    "summury": "Исследование причин завышенных цен на видеокарты.",
+    "content": "Видеокарты — это не просто железо, это произведения искусства. Каждая из них плачет золотыми слезами, потому что знает, что её купят только для майнинга или запуска Crysis.",
+    "time_create": "2025-03-22T12:32:59.354Z",
+    "time_update": "2025-03-26T16:01:15.988Z",
+    "is_published": true,
+    "author": "Экономист-геймер",
+    "co_author": null,
+    "cat": 11,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 4,
+  "fields": {
+    "title": "Почему ваш Wi-Fi такой медленный? Он просто стесняется!",
+    "slug": "slow-wi-fi",
+    "summury": "Психологический анализ поведения вашего роутера.",
+    "content": "Ваш Wi-Fi не медленный — он просто стесняется. Попробуйте поговорить с ним, похвалить его за хорошую работу, и, возможно, он начнет работать быстрее.",
+    "time_create": "2025-03-22T12:34:40.008Z",
+    "time_update": "2025-03-26T15:59:45.011Z",
+    "is_published": false,
+    "author": "Психолог-сетевой администратор",
+    "co_author": null,
+    "cat": 10,
+    "tags": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 5,
+  "fields": {
+    "title": "Почему геймеры ненавидят лаги? Это личное!",
+    "slug": "langs-in-games",
+    "summury": "Исследование эмоциональной связи геймеров с их играми.",
+    "content": "Лаги — это не просто задержки, это предательство. Геймеры вкладывают душу в свои игры, и когда игра \"лагает\", это как удар в спину.",
+    "time_create": "2025-03-22T12:35:38.496Z",
+    "time_update": "2025-03-26T16:01:15.987Z",
+    "is_published": true,
+    "author": "Геймер-философ",
+    "co_author": null,
+    "cat": 9,
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 6,
+  "fields": {
+    "title": "Почему ваш ноутбук греется? Он просто влюбился в вас!",
+    "slug": "hot-laptop",
+    "summury": "Романтическая история о вашем ноутбуке.",
+    "content": "Ваш ноутбук греется не из-за перегрузки процессора. Он просто влюбился в вас и пытается согреть вас своим теплом.",
+    "time_create": "2025-03-22T12:36:38.848Z",
+    "time_update": "2025-03-26T16:01:15.986Z",
+    "is_published": true,
+    "author": "Романтик-айтишник",
+    "co_author": null,
+    "cat": 11,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 7,
+  "fields": {
+    "title": "Почему программисты ненавидят комары? Они пишут на Python!",
+    "slug": "not-python",
+    "summury": "Юмористический взгляд на отношения программистов и насекомых.",
+    "content": "Комары — это самые маленькие программисты. Они пишут свои \"скрипты\" на Python, чтобы высасывать вашу кровь.",
+    "time_create": "2025-03-22T12:37:49.045Z",
+    "time_update": "2025-03-26T15:59:45.008Z",
+    "is_published": false,
+    "author": "Энтомолог-программист",
+    "co_author": 2,
+    "cat": 10,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 8,
+  "fields": {
+    "title": "Почему ваш смартфон разряжается так быстро? Он просто устал от вас!",
+    "slug": "phone",
+    "summury": "Психологический анализ вашего смартфона.",
+    "content": "Ваш смартфон разряжается не из-за плохой батареи. Он просто устал от ваших бесконечных селфи и сообщений.",
+    "time_create": "2025-03-22T14:36:09.215Z",
+    "time_update": "2025-03-26T16:01:15.985Z",
+    "is_published": true,
+    "author": "Психолог-гаджет",
+    "co_author": null,
+    "cat": 3,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 9,
+  "fields": {
+    "title": "Почему ваш принтер всегда ломается? Он просто ненавидит вас!",
+    "slug": "printer",
+    "summury": "Исследование причин ненависти принтеров к своим владельцам.",
+    "content": "Ваш принтер ломается не из-за технических неполадок. Он просто ненавидит вас и хочет, чтобы вы страдали.",
+    "time_create": "2025-03-22T14:45:56.194Z",
+    "time_update": "2025-03-26T16:01:15.983Z",
+    "is_published": true,
+    "author": "Техник-мизантроп",
+    "co_author": null,
+    "cat": 8,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 10,
+  "fields": {
+    "title": "Почему ваш жесткий диск шумит? Он просто поет!",
+    "slug": "pochemu-vash-zhestkij-disk-shumit-on-prosto-poet",
+    "summury": "Музыкальный взгляд на работу жесткого диска.",
+    "content": "Ваш жесткий диск не шумит — он просто поет. Возможно, он мечтает стать оперным певцом.",
+    "time_create": "2025-03-22T14:57:13.004Z",
+    "time_update": "2025-03-26T16:01:15.982Z",
+    "is_published": true,
+    "author": "Музыкант-сисадмин",
+    "co_author": null,
+    "cat": 8,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 11,
+  "fields": {
+    "title": "Почему ваш монитор мерцает? Он просто мигает вам!",
+    "slug": "pochemu-vash-monitor-mercaet-on-prosto-migaet-vam",
+    "summury": "Романтическая история о вашем мониторе.",
+    "content": "Ваш монитор мерцает не из-за неполадок. Он просто мигает вам, чтобы сказать, что вы ему нравитесь.",
+    "time_create": "2025-03-22T15:01:36.143Z",
+    "time_update": "2025-03-26T16:01:15.981Z",
+    "is_published": true,
+    "author": "Романтик-айтишник",
+    "co_author": null,
+    "cat": 12,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 12,
+  "fields": {
+    "title": "Почему ваш процессор греется? Он просто нервничает!",
+    "slug": "pochemu-vash-processor-greetsya-on-prosto-nervnichaet",
+    "summury": "Психологический анализ вашего процессора.",
+    "content": "Ваш процессор греется не из-за перегрузки. Он просто нервничает, потому что вы открыли слишком много вкладок в браузере.",
+    "time_create": "2025-03-22T15:02:11.741Z",
+    "time_update": "2025-03-26T16:01:15.979Z",
+    "is_published": true,
+    "author": "Психолог-железячник",
+    "co_author": 1,
+    "cat": 11,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 13,
+  "fields": {
+    "title": "Почему ваш смартфон падает экраном вниз? Он просто хочет обнять землю!",
+    "slug": "pochemu-vash-smartfon-padaet-ekranom-vniz-on-prosto-hochet-obnyat-zemlyu",
+    "summury": "Исследование гравитации и смартфонов.",
+    "content": "Ваш смартфон падает экраном вниз не из-за неудачного дизайна. Он просто хочет обнять землю и почувствовать себя ближе к природе.",
+    "time_create": "2025-03-22T15:02:38.558Z",
+    "time_update": "2025-03-26T16:01:15.978Z",
+    "is_published": true,
+    "author": "Физик-юморист",
+    "co_author": null,
+    "cat": 4,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 14,
+  "fields": {
+    "title": "Почему ваш ноутбук тормозит? Он просто думает о смысле жизни!",
+    "slug": "pochemu-vash-noutbuk-tormozit-on-prosto-dumaet-o-smysle-zhizni",
+    "summury": "Философский взгляд на работу ноутбука.",
+    "content": "Ваш ноутбук тормозит не из-за перегрузки. Он просто задумался о смысле жизни и пытается найти ответы на вечные вопросы.",
+    "time_create": "2025-03-22T15:03:27.946Z",
+    "time_update": "2025-03-26T16:01:15.976Z",
+    "is_published": true,
+    "author": "Философ-айтишник",
+    "co_author": null,
+    "cat": 8,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 15,
+  "fields": {
+    "title": "Почему ваш роутер перезагружается? Он просто устал от ваших запросов!",
+    "slug": "pochemu-vash-router-perezagruzhaetsya-on-prosto-ustal-ot-vashih-zaprosov",
+    "summury": "Исследование усталости роутеров.",
+    "content": "Ваш роутер перезагружается не из-за сбоев. Он просто устал от ваших бесконечных запросов и решил взять перерыв.",
+    "time_create": "2025-03-22T15:04:00.598Z",
+    "time_update": "2025-03-26T16:01:15.975Z",
+    "is_published": true,
+    "author": "Сетевой психолог",
+    "co_author": null,
+    "cat": 12,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 16,
+  "fields": {
+    "title": "Почему ваш смартфон зависает? Он просто мечтает",
+    "slug": "pochemu-vash-smartfon-zavisaet-on-prosto-mechtaet",
+    "summury": "Исследование мечтаний смартфонов.",
+    "content": "Ваш смартфон зависает не из-за перегрузки. Он просто мечтает о том, чтобы стать космическим кораблем.",
+    "time_create": "2025-03-22T15:04:26.892Z",
+    "time_update": "2025-03-26T16:01:15.974Z",
+    "is_published": true,
+    "author": "Мечтатель-айтишник",
+    "co_author": null,
+    "cat": 1,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 17,
+  "fields": {
+    "title": "Почему ваш компьютер пищит? Он просто хочет поговорить!",
+    "slug": "pochemu-vash-kompyuter-pishit-on-prosto-hochet-pogovorit",
+    "summury": "Исследование коммуникативных навыков компьютеров",
+    "content": "Ваш компьютер пищит не из-за ошибок. Он просто хочет поговорить с вами, но не знает, как начать разговор.",
+    "time_create": "2025-03-22T15:05:18.194Z",
+    "time_update": "2025-03-26T16:01:15.972Z",
+    "is_published": true,
+    "author": "Лингвист-айтишник",
+    "co_author": null,
+    "cat": 11,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 18,
+  "fields": {
+    "title": "Почему ваш монитор искажает цвета? Он просто художник!",
+    "slug": "pochemu-vash-monitor-iskazhaet-cveta-on-prosto-hudozhnik",
+    "summury": "Исследование творческих способностей мониторов.",
+    "content": "Ваш монитор искажает цвета не из-за неполадок. Он просто художник и пытается создать свой шедевр.",
+    "time_create": "2025-03-22T15:05:41.499Z",
+    "time_update": "2025-03-26T16:01:15.970Z",
+    "is_published": true,
+    "author": "Искусствовед-айтишник",
+    "co_author": null,
+    "cat": 9,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 19,
+  "fields": {
+    "title": "Почему ваш ноутбук выключается? Он просто хочет спать!",
+    "slug": "pochemu-vash-noutbuk-vyklyuchaetsya-on-prosto-hochet-spat",
+    "summury": "Исследование режима сна ноутбуков.",
+    "content": "Ваш ноутбук выключается не из-за перегрева. Он просто устал и хочет спать.",
+    "time_create": "2025-03-22T15:06:04.679Z",
+    "time_update": "2025-03-26T16:01:15.969Z",
+    "is_published": true,
+    "author": "Сомнолог-айтишник",
+    "co_author": null,
+    "cat": 6,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 20,
+  "fields": {
+    "title": "Почему ваш смартфон не заряжается? Он просто на диете!",
+    "slug": "pochemu-vash-smartfon-ne-zaryazhaetsya-on-prosto-na-diete",
+    "summury": "Исследование диетических привычек смартфонов.",
+    "content": "Ваш смартфон не заряжается не из-за неполадок. Он просто решил сесть на диету и отказаться от лишних калорий.",
+    "time_create": "2025-03-22T15:06:39.458Z",
+    "time_update": "2025-03-26T16:01:15.967Z",
+    "is_published": true,
+    "author": "Диетолог-айтишник",
+    "co_author": null,
+    "cat": 5,
+    "tags": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 21,
+  "fields": {
+    "title": "Основатель",
+    "slug": "osnovatel",
+    "summury": "История основателя",
+    "content": "История основателя. Когда-то родился. Сделал:\r\n1\r\n2\r\n3\r\nи т.д.",
+    "time_create": "2025-03-22T15:25:57.287Z",
+    "time_update": "2025-03-26T16:01:15.963Z",
+    "is_published": true,
+    "author": "Kirill Tech",
+    "co_author": null,
+    "cat": 13,
+    "tags": []
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 1,
+  "fields": {
+    "name": "Default",
+    "slug": "default"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 2,
+  "fields": {
+    "name": "кот",
+    "slug": "kot"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 3,
+  "fields": {
+    "name": "Машины",
+    "slug": "mashiny"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 4,
+  "fields": {
+    "name": "Chill",
+    "slug": "chill"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 5,
+  "fields": {
+    "name": "Жизнь",
+    "slug": "zhizn"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 6,
+  "fields": {
+    "name": "Python",
+    "slug": "python"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 7,
+  "fields": {
+    "name": "Django",
+    "slug": "django"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 8,
+  "fields": {
+    "name": "Linux",
+    "slug": "linux"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 9,
+  "fields": {
+    "name": "JS",
+    "slug": "js"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 10,
+  "fields": {
+    "name": "Vue.js",
+    "slug": "vuejs"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 11,
+  "fields": {
+    "name": "React",
+    "slug": "react"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 12,
+  "fields": {
+    "name": "girls",
+    "slug": "girls"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 13,
+  "fields": {
+    "name": "НОС",
+    "slug": "nos"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 1,
+  "fields": {
+    "tag": "Статья",
+    "slug": "statia"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 2,
+  "fields": {
+    "tag": "Чебурашка",
+    "slug": "cheburashka"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 3,
+  "fields": {
+    "tag": "Чебурек",
+    "slug": "cheburek"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 4,
+  "fields": {
+    "tag": "Степашка",
+    "slug": "stepashka"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 5,
+  "fields": {
+    "tag": "Машины",
+    "slug": "mashiny"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 6,
+  "fields": {
+    "tag": "Программисты",
+    "slug": "programisty"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 7,
+  "fields": {
+    "tag": "Еда",
+    "slug": "eda"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 8,
+  "fields": {
+    "tag": "Плов",
+    "slug": "plov"
+  }
+},
+{
+  "model": "posts.tagpost",
+  "pk": 9,
+  "fields": {
+    "tag": "Кунжут",
+    "slug": "kunzhut"
+  }
+},
+{
+  "model": "posts.author",
+  "pk": 1,
+  "fields": {
+    "name": "Ivan Sidorov",
+    "count_publish": null,
+    "citation_count": 4
+  }
+},
+{
+  "model": "posts.author",
+  "pk": 2,
+  "fields": {
+    "name": "Oleg",
+    "count_publish": 2,
+    "citation_count": 1
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$fFe4LMUAYLpvrKG0RLJQ4I$DYj5/QwIv4Zr2iy7502YokgE2ZFwGLx0b74hmQOPDrs=",
+    "last_login": "2025-03-22T12:07:24.735Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-03-22T12:07:04.053Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8td3h894g4uaxjkfpi02puvorsqc6f8z",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFAh5dL934DGRiQqoGktCvjv2uTLnR7zzn3xQJuaw3byEuYiZ2ZZKffLWJ65LYDumO7dZ56W5c58l3hBx382ik_L4f7d1Bx1G-NziWhkgZD1gpAZcArJAE-WpigGDA-YylaSWmjnYQB0MkWUhMagY69P76JNuI:1tvxdM:hffonStvsdFsyOeYMgsHMPlQ6BdY-rPzhJdhMmlk_ow",
+    "expire_date": "2025-04-05T12:07:24.799Z"
+  }
+}
+]
