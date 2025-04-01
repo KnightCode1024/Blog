@@ -27,6 +27,7 @@
               {% if user.is_authenticated and user.is_staff %}
               <a href="{% url 'admin:index' %}" type="button" class="btn btn-outline-light me-2">Админка</a>
               {% endif %}
+              <a href="{% url 'users:profile' %}"><img src="{% static 'img/lk.png' %}" alt=""></a>
             </div>
           </div>
         </div>

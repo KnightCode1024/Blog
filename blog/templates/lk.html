@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Боковая панель профиля -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-body text-center">
+                    <img src="{{ user.profile.avatar.url }}" alt="Аватар" class="rounded-circle img-thumbnail mb-3" width="150" height="150">
+                    <h5 class="card-title">{{ user.get_full_name|default:user.username }}</h5>
+                    <p class="text-muted">@{{ user.username }}</p>
+
+                    {% if user.profile.bio %}
+                        <p class="card-text">{{ user.profile.bio }}</p>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-center mb-2">
+                        <button class="btn btn-outline-light">Редактировать</button>
+                        <button class="btn btn-outline-light">Поделиться</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-header">
+                    Информация
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        {% if user.profile.location %}
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt-fill me-2"></i> {{ user.profile.location }}
+                        </li>
+                        {% endif %}
+
+                        {% if user.profile.birth_date %}
+                        <li class="mb-2">
+                            <i class="bi bi-calendar3 me-2"></i> Родился {{ user.profile.birth_date|date:"d.m.Y" }}
+                        </li>
+                        {% endif %}
+
+                        <li class="mb-2">
+                            <i class="bi bi-clock me-2"></i> Присоединился {{ user.date_joined|date:"d.m.Y" }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основное содержимое профиля -->
+        <div class="col-md-8">
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Активность</span>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-secondary">Посты</button>
+                        <button class="btn btn-sm btn-outline-secondary">Комментарии</button>
+                        <button class="btn btn-sm btn-outline-secondary">Лайки</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Последние действия</h5>
+                    <div class="list-group">
+                        {% for activity in activities %}
+                        <a href="#" class="list-group-item list-group-item-action bg-secondary text-white border-dark">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ activity.title }}</h6>
+                                <small>{{ activity.created_at|timesince }} назад</small>
+                            </div>
+                            <p class="mb-1">{{ activity.description }}</p>
+                        </a>
+                        {% empty %}
+                        <div class="text-center py-3 text-muted">
+                            Активность отсутствует
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-dark text-white">
+                <div class="card-header">
+                    Статистика
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <h5>{{ post_count }}</h5>
+                            <p class="text-muted mb-0">Постов</p>
+                        </div>
+                        <div class="col-4">
+                            <h5>{{ comment_count }}</h5>
+                            <p class="text-muted mb-0">Комментариев</p>
+                        </div>
+                        <div class="col-4">
+                            <h5>{{ like_count }}</h5>
+                            <p class="text-muted mb-0">Лайков</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
