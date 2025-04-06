@@ -24,8 +24,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Django libs
-    # Developers Apps
     "posts.apps.PostsConfig",
     "users.apps.UsersConfig",
 ]
