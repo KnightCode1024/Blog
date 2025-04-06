@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 from posts.models import Post, Category, TagPost
 from django.db.models.functions import Length
+from unfold.admin import ModelAdmin
 
 
 class CoAuthorFilter(admin.SimpleListFilter):
@@ -49,7 +50,11 @@ class ContentFilter(admin.SimpleListFilter):
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(ModelAdmin):
+    exclude = [
+        "is_published",
+    ]
+    # readonly_fields = ["slug"]
     list_display = [
         "title",
         "time_create",
@@ -68,7 +73,6 @@ class PostAdmin(admin.ModelAdmin):
         "is_published",
         "cat",
     ]
-    prepopulated_fields = {"slug": ("title",)}
     list_per_page = 10
     actions = [
         "set_publish_to_all_posts",
@@ -84,6 +88,9 @@ class PostAdmin(admin.ModelAdmin):
         "cat__name",
         "is_published",
     ]
+    prepopulated_fields = {"slug": ["title"]}
+    filter_horizontal = ["tags"]
+    # filter_vertical = ["tags"]
 
     @admin.display(description="Краткое описание")
     def brief_info(self, post: Post):
@@ -103,13 +110,13 @@ class PostAdmin(admin.ModelAdmin):
             messages.WARNING,
         )
 
-    class Meta:
-        verbose_name = "Пост"
-        verbose_name_plural = "Посты"
+    # class Meta:
+    #     verbose_name = "Пост"
+    #     verbose_name_plural = "Посты"
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ModelAdmin):
     list_display = [
         "id",
         "name",
@@ -128,7 +135,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(TagPost)
-class TagPostAdmin(admin.ModelAdmin):
+class TagPostAdmin(ModelAdmin):
     list_display = [
         "tag",
         "slug",
@@ -136,6 +143,6 @@ class TagPostAdmin(admin.ModelAdmin):
     list_display_links = ["tag"]
     prepopulated_fields = {"slug": ("tag",)}
 
-    class Meta:
-        verbose_name = "Тэг"
-        verbose_name_plural = "Тэги"
+    # class Meta:
+    #     verbose_name = "Тэг"
+    #     verbose_name_plural = "Тэги"

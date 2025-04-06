@@ -1,6 +1,47 @@
 from django.db import models
 from django.urls import reverse
-from django.utils.text import slugify
+from django.template.defaultfilters import slugify
+
+
+def russian_to_slug(s: str) -> str:
+    alphabet = {
+        "а": "a",
+        "б": "b",
+        "в": "v",
+        "г": "g",
+        "д": "d",
+        "е": "e",
+        "ё": "yo",
+        "ж": "zh",
+        "з": "z",
+        "и": "i",
+        "к": "k",
+        "л": "l",
+        "м": "m",
+        "н": "n",
+        "о": "o",
+        "п": "p",
+        "р": "r",
+        "с": "s",
+        "т": "t",
+        "у": "u",
+        "ф": "f",
+        "х": "h",
+        "ц": "c",
+        "ч": "ch",
+        "ш": "sh",
+        "щ": "shch",
+        "ь": "",
+        "ы": "y",
+        "ъ": "",
+        "э": "r",
+        "ю": "yu",
+        "я": "ya",
+    }
+
+    return "".join(
+        map(lambda x: alphabet[x] if alphabet.get(x, False) else x, s.lower())
+    )
 
 
 class PublishedManager(models.Manager):
@@ -22,9 +63,9 @@ class Post(models.Model):
         blank=True,
     )
     summury = models.TextField(
-        max_length=255, blank=False, verbose_name="Тизер"
+        max_length=255, blank=False, verbose_name="Краткое содержание"
     )
-    content = models.TextField(blank=False, verbose_name="Текст поста")
+    content = models.TextField(blank=False, verbose_name="Пост")
     time_create = models.DateTimeField(
         auto_now_add=True, verbose_name="Время создания"
     )
@@ -64,10 +105,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("posts:post", kwargs={"post_slug": self.slug})
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(russian_to_slug(self.title))
+    #     super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["-time_create"]
