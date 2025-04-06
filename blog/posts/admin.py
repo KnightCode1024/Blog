@@ -51,10 +51,7 @@ class ContentFilter(admin.SimpleListFilter):
 
 @admin.register(Post)
 class PostAdmin(ModelAdmin):
-    exclude = [
-        "is_published",
-    ]
-    # readonly_fields = ["slug"]
+    exclude = ["is_published"]
     list_display = [
         "title",
         "time_create",
@@ -90,7 +87,6 @@ class PostAdmin(ModelAdmin):
     ]
     prepopulated_fields = {"slug": ["title"]}
     filter_horizontal = ["tags"]
-    # filter_vertical = ["tags"]
 
     @admin.display(description="Краткое описание")
     def brief_info(self, post: Post):
@@ -109,10 +105,6 @@ class PostAdmin(ModelAdmin):
             f"Изменено {count} записи(ей).",
             messages.WARNING,
         )
-
-    # class Meta:
-    #     verbose_name = "Пост"
-    #     verbose_name_plural = "Посты"
 
 
 @admin.register(Category)
@@ -142,7 +134,3 @@ class TagPostAdmin(ModelAdmin):
     ]
     list_display_links = ["tag"]
     prepopulated_fields = {"slug": ("tag",)}
-
-    # class Meta:
-    #     verbose_name = "Тэг"
-    #     verbose_name_plural = "Тэги"
