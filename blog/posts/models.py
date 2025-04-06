@@ -15,59 +15,48 @@ class Post(models.Model):
         DRAFT = 0, "Черновик"
         PUBLISHED = 1, "Опубликовано"
 
-    title = models.CharField(
-        max_length=255,
-    )
+    title = models.CharField(max_length=255, verbose_name="Заголовок")
     slug = models.SlugField(
         max_length=255,
         unique=True,
         blank=True,
     )
     summury = models.TextField(
-        max_length=255,
-        blank=False,
+        max_length=255, blank=False, verbose_name="Тизер"
     )
-    content = models.TextField(
-        blank=False,
-    )
+    content = models.TextField(blank=False, verbose_name="Текст поста")
     time_create = models.DateTimeField(
-        auto_now_add=True,
+        auto_now_add=True, verbose_name="Время создания"
     )
     time_update = models.DateTimeField(
-        auto_now=True,
+        auto_now=True, verbose_name="Время последнего обновления"
     )
     is_published = models.BooleanField(
-        choices=Status,
+        choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
         default=Status.PUBLISHED,
+        verbose_name="Статус",
     )
-    author = models.CharField(
-        max_length=50,
-        blank=True,
-    )
+    author = models.CharField(max_length=50, blank=True, verbose_name="Автор")
     co_author = models.OneToOneField(
         "Author",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="author",
+        verbose_name="Соавтор",
     )
     cat = models.ForeignKey(
         "Category",
         on_delete=models.PROTECT,
         related_name="posts",
+        verbose_name="Категория",
     )
     tags = models.ManyToManyField(
-        "TagPost",
-        blank=True,
-        related_name="tags",
+        "TagPost", blank=True, related_name="tags", verbose_name="Тэги"
     )
 
     objects = models.Manager()
     published = PublishedManager()
-
-    class Meta:
-        ordering = ["time_create"]
-        indexes = [models.Index(fields=["-time_create"])]
 
     def __str__(self):
         return self.title
@@ -80,11 +69,18 @@ class Post(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    class Meta:
+        ordering = ["-time_create"]
+        indexes = [models.Index(fields=["-time_create"])]
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"
+
 
 class Category(models.Model):
     name = models.CharField(
         max_length=100,
         db_index=True,
+        verbose_name="Категория",
     )
     slug = slug = models.SlugField(
         max_length=255,
@@ -98,6 +94,10 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse("posts:category", kwargs={"cat_slug": self.slug})
 
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
 
 class TagPost(models.Model):
     tag = models.CharField(max_length=100, db_index=True)
@@ -108,6 +108,10 @@ class TagPost(models.Model):
 
     def get_absolute_url(self):
         return reverse("posts:tag", kwargs={"tag_slug": self.slug})
+
+    class Meta:
+        verbose_name = "Тэг"
+        verbose_name_plural = "Тэги"
 
 
 class Author(models.Model):
@@ -124,3 +128,7 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Автор"
+        verbose_name_plural = "Авторы"

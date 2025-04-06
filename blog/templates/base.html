@@ -22,12 +22,13 @@
             </form>
 
             <div class="text-end">
-              <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Вход</a>
-              <a href="{% url 'users:register' %}" type="button" class="btn btn-outline-light me-2">Регистрация</a>
+              <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Войти</a>
+              <a href="{% url 'users:register' %}" type="button" class="btn btn-outline-light me-2">Зарегестрироватся</a>
+              <a href="" type="button" class="btn btn-outline-light me-2">Выйти</a>
               {% if user.is_authenticated and user.is_staff %}
               <a href="{% url 'admin:index' %}" type="button" class="btn btn-outline-light me-2">Админка</a>
               {% endif %}
-              <a href="{% url 'users:profile' %}"><img src="{% static 'img/lk.png' %}" alt=""></a>
+              <a href="{% url 'users:lk' %}"><img src="{% static 'img/lk.png' %}" alt=""></a>
             </div>
           </div>
         </div>

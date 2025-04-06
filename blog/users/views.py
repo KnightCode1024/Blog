@@ -9,5 +9,5 @@ def register(request):
     return render(request, "register.html")
 
 
-def profile(request):
+def lk(request):
     return render(request, "lk.html")
