@@ -12,7 +12,7 @@
                     <img src="{% static 'img/not_photo.jpg' %}" class="card-img-top" alt="">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.summury }}</p>
+                        <p class="card-text">{{ post.summury|safe}}</p>
                         <div class="mt-auto">
                             <div class="text-left mt-2">
                                 <a class="badge badge-primary card-text d-block text-decoration-none" href="{{ post.cat.get_absolute_url }}">{{ post.cat.name }}</a>

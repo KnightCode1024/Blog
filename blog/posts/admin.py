@@ -1,7 +1,10 @@
 from django.contrib import admin, messages
-from posts.models import Post, Category, TagPost
 from django.db.models.functions import Length
 from unfold.admin import ModelAdmin
+from django.db import models
+from unfold.contrib.forms.widgets import WysiwygWidget
+
+from posts.models import Post, Category, TagPost
 
 
 class CoAuthorFilter(admin.SimpleListFilter):
@@ -87,6 +90,11 @@ class PostAdmin(ModelAdmin):
     ]
     prepopulated_fields = {"slug": ["title"]}
     filter_horizontal = ["tags"]
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
 
     @admin.display(description="Краткое описание")
     def brief_info(self, post: Post):

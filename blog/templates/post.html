@@ -7,8 +7,8 @@
             <div class="card mb-5 bg-dark text-white">
                 <div class="card-body">
                         <h1 class="card-title text-center mb-4">{{ post.title }}</h1>
-                        <span class="card-text">{{ post.summury }}</span>
-                        <p class="card-text">{{ post.content|linebreaks }}</p>
+                        <span class="card-text">{{ post.summury|safe  }}</span>
+                        <p class="card-text">{{ post.content|safe  }}</p>
                     <div class="text-end mt-4 ">
                         <div class="text-left mt-2">
                             <a class="badge badge-primary card-text d-block text-decoration-none" href="{{ post.cat.get_absolute_url }}">{{ post.cat.name }}</a>
