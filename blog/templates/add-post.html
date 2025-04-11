@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить новый пост{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-header border-secondary">
+                    <h2 class="mb-0">Добавить новый пост</h2>
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-outline-light me-2">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

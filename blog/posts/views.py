@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django import http
 
 from posts.models import Post, Category, TagPost
+from posts.forms import AddPostForm
 
 
 def index(request):
@@ -61,3 +62,18 @@ def tag(request, tag_slug):
         "posts": posts,
     }
     return render(request, "posts_by_tag.html", data)
+
+
+def add_post(request):
+    if request.method == "POST":
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddPostForm()
+
+    # form = AddPostForm()
+    data = {
+        "form": form,
+    }
+    return render(request, "add-post.html", data)

@@ -25,4 +25,9 @@ urlpatterns = [
         views.tag,
         name="tag",
     ),
+    path(
+        "add/",
+        views.add_post,
+        name="add_post",
+    ),
 ]
