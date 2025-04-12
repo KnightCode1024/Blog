@@ -119,12 +119,16 @@ def search(request):
     if form.is_valid():
         query = form.cleaned_data["search"]
         if query:
-            posts = Post.objects.filter(
-                Q(title__icontains=query)
-                | Q(content__icontains=query)
-                | Q(summury__icontains=query)
-            ).order_by("-time_create")
-            count = posts.count()
+            posts = (
+                Post.objects.filter(
+                    Q(title__icontains=query)
+                    | Q(content__icontains=query)
+                    | Q(summury__icontains=query)
+                )
+                .select_related("cat")
+                .prefetch_related("tags")
+                .order_by("-time_create")
+            )
 
     data = {
         "posts": posts,
