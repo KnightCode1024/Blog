@@ -73,7 +73,7 @@ class AddPostForm(forms.ModelForm):
                 return instance
             except IntegrityError:
                 instance.slug = (
-                    f"{base_slug}-{i+1}" if i > 0 else f"{base_slug}-1"
+                    f"{base_slug}{i+1}" if i > 0 else f"{base_slug}1"
                 )
 
         return instance

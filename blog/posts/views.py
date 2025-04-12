@@ -129,6 +129,7 @@ def search(request):
                 .prefetch_related("tags")
                 .order_by("-time_create")
             )
+            count = len(posts)
 
     data = {
         "posts": posts,
