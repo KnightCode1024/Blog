@@ -36,14 +36,6 @@ class Post(models.Model):
         verbose_name="Статус",
     )
     author = models.CharField(max_length=50, blank=True, verbose_name="Автор")
-    co_author = models.OneToOneField(
-        "Author",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="author",
-        verbose_name="Соавтор",
-    )
     cat = models.ForeignKey(
         "Category",
         on_delete=models.PROTECT,
@@ -76,7 +68,7 @@ class Category(models.Model):
         db_index=True,
         verbose_name="Категория",
     )
-    slug = slug = models.SlugField(
+    slug = models.SlugField(
         max_length=255,
         unique=True,
         db_index=True,
@@ -106,23 +98,3 @@ class TagPost(models.Model):
     class Meta:
         verbose_name = "Тэг"
         verbose_name_plural = "Тэги"
-
-
-class Author(models.Model):
-    name = models.CharField(
-        max_length=100,
-    )
-    count_publish = models.IntegerField(
-        null=True,
-    )
-    citation_count = models.IntegerField(
-        blank=True,
-        default=0,
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Автор"
-        verbose_name_plural = "Авторы"

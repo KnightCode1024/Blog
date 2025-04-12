@@ -1,67 +1,93 @@
 from django import forms
-from posts.models import Category, TagPost, Author
+from django.utils.text import slugify
+from django.db import IntegrityError
+
+from posts.models import Post
 
 
-class AddPostForm(forms.Form):
-    title = forms.CharField(
+class AddPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = [
+            "title",
+            "summury",
+            "content",
+            "is_published",
+            "author",
+            "cat",
+            "tags",
+        ]
+        widgets = {
+            "title": forms.TextInput(
+                attrs={
+                    "class": "form-control bg-dark text-white",
+                    "placeholder": "Введите заголовок",
+                }
+            ),
+            "summury": forms.Textarea(
+                attrs={
+                    "class": "form-control bg-dark text-white",
+                    "rows": 3,
+                    "placeholder": "Краткое описание",
+                }
+            ),
+            "content": forms.Textarea(
+                attrs={
+                    "class": "form-control bg-dark text-white",
+                    "rows": 5,
+                    "placeholder": "Основной текст",
+                }
+            ),
+            "is_published": forms.CheckboxInput(
+                attrs={
+                    "class": "form-check-input bg-dark text-white",
+                }
+            ),
+            "author": forms.Select(
+                attrs={
+                    "class": "form-select bg-dark text-white",
+                }
+            ),
+            "cat": forms.Select(
+                attrs={
+                    "class": "form-select bg-dark text-white",
+                }
+            ),
+            "tags": forms.SelectMultiple(
+                attrs={
+                    "class": "form-select bg-dark text-white",
+                }
+            ),
+        }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        base_slug = slugify(instance.title)
+        instance.slug = base_slug
+
+        for i in range(100):
+            try:
+                if commit:
+                    instance.save()
+                    self.save_m2m()
+                return instance
+            except IntegrityError:
+                instance.slug = (
+                    f"{base_slug}-{i+1}" if i > 0 else f"{base_slug}-1"
+                )
+
+        return instance
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(
         max_length=255,
+        label="",
+        required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "form-control bg-dark text-white",
-                "placeholder": "Введите заголовок",
+                "class": "form-control form-control-dark",
+                "placeholder": "Поиск",
             }
         ),
-    )
-    slug = forms.SlugField(
-        max_length=255,
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control bg-dark text-white",
-                "placeholder": "URL-адрес поста",
-            }
-        ),
-    )
-    summury = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "class": "form-control bg-dark text-white",
-                "rows": 3,
-                "placeholder": "Краткое описание",
-            }
-        ),
-    )
-    content = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "class": "form-control bg-dark text-white",
-                "rows": 5,
-                "placeholder": "Основной текст",
-            }
-        ),
-    )
-    is_published = forms.BooleanField(
-        required=False,
-        widget=forms.CheckboxInput(
-            attrs={"class": "form-check-input bg-dark text-white"}
-        ),
-    )
-    author = forms.ModelChoiceField(
-        queryset=Author.objects.all(),
-        required=False,
-        widget=forms.Select(attrs={"class": "form-select bg-dark text-white"}),
-    )
-    co_author = forms.ModelChoiceField(
-        queryset=Author.objects.all(),
-        required=False,
-        widget=forms.Select(attrs={"class": "form-select bg-dark text-white"}),
-    )
-    cat = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        required=False,
-        widget=forms.Select(attrs={"class": "form-select bg-dark text-white"}),
-    )
-    tags = forms.ModelChoiceField(
-        queryset=TagPost.objects.all(),
-        required=False,
-        widget=forms.Select(attrs={"class": "form-select bg-dark text-white"}),
     )

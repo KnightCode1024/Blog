@@ -7,23 +7,6 @@ from unfold.contrib.forms.widgets import WysiwygWidget
 from posts.models import Post, Category, TagPost
 
 
-class CoAuthorFilter(admin.SimpleListFilter):
-    title = "Наличие соавтора"
-    parameter_name = "соавтора"
-
-    def lookups(self, request, model_admin):
-        return [
-            ("co-author", "Есть соавтор"),
-            ("single", "Нет соавтора"),
-        ]
-
-    def queryset(self, request, queryset):
-        if self.value() == "co-author":
-            return queryset.filter(co_author__isnull=False)
-        else:
-            return queryset.filter(co_author__isnull=True)
-
-
 class ContentFilter(admin.SimpleListFilter):
     title = "Сортировка по статьям"
     parameter_name = "status"
@@ -83,7 +66,6 @@ class PostAdmin(ModelAdmin):
         "cat__name",
     ]
     list_filter = [
-        CoAuthorFilter,
         ContentFilter,
         "cat__name",
         "is_published",

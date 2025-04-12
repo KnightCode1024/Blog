@@ -16,9 +16,14 @@
               <li><a href="{% url 'posts:add_post' %}" class="nav-link px-2 text-white">Добавить пост</a></li>
               <li><a href="{% url 'posts:about' %}" class="nav-link px-2 text-white">Автор</a></li>
             </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{% url 'posts:search' %}" method="get">
+              <input type="search"
+                     class="form-control form-control-dark"
+                     placeholder="Поиск"
+                     name="search">
             </form>
+
             <div class="text-end">
               <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-light me-2">Войти</a>
               <a href="{% url 'users:register' %}" type="button" class="btn btn-outline-light me-2">Зарегестрироватся</a>
