@@ -1,14 +1,11 @@
-from django import template
+import os
 
-from posts.models import Category
+from django import template
 
 
 register = template.Library()
 
 
-@register.inclusion_tag("list_categories.html")
-def show_categories():
-    cats = Category.objects.all()
-    return {
-        "cats": cats,
-    }
+@register.filter
+def basename(value):
+    return os.path.basename(value)

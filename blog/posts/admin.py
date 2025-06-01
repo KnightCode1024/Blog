@@ -1,8 +1,6 @@
 from django.contrib import admin, messages
 from django.db.models.functions import Length
-from unfold.admin import ModelAdmin
-from django.db import models
-from unfold.contrib.forms.widgets import WysiwygWidget
+from django.utils.safestring import mark_safe
 
 from posts.models import Post, Category, TagPost
 
@@ -36,7 +34,7 @@ class ContentFilter(admin.SimpleListFilter):
 
 
 @admin.register(Post)
-class PostAdmin(ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     exclude = ["is_published"]
     list_display = [
         "title",
@@ -44,6 +42,7 @@ class PostAdmin(ModelAdmin):
         "is_published",
         "cat",
         "brief_info",
+        "post_img",
     ]
     list_display_links = [
         "title",
@@ -72,11 +71,8 @@ class PostAdmin(ModelAdmin):
     ]
     prepopulated_fields = {"slug": ["title"]}
     filter_horizontal = ["tags"]
-    formfield_overrides = {
-        models.TextField: {
-            "widget": WysiwygWidget,
-        }
-    }
+
+    save_on_top = True
 
     @admin.display(description="Краткое описание")
     def brief_info(self, post: Post):
@@ -96,9 +92,13 @@ class PostAdmin(ModelAdmin):
             messages.WARNING,
         )
 
+    def post_img(self, post: Post):
+        if post.image:
+            return mark_safe(f"<img src='{post.image.url}' width=50>")
+
 
 @admin.register(Category)
-class CategoryAdmin(ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "name",
@@ -117,7 +117,7 @@ class CategoryAdmin(ModelAdmin):
 
 
 @admin.register(TagPost)
-class TagPostAdmin(ModelAdmin):
+class TagPostAdmin(admin.ModelAdmin):
     list_display = [
         "tag",
         "slug",

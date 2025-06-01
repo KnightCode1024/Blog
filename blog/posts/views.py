@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from django import http
 from django.db.models import Q
 
 from posts.models import Post, Category, TagPost
-from posts.forms import AddPostForm, SearchForm
+from posts.forms import PostForm, SearchForm
 
 
 def index(request):
@@ -90,15 +90,14 @@ def tag(request, tag_slug):
 
 def add_post(request):
     if request.method == "POST":
-        form = AddPostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                form.save()
-                return redirect(reverse("index"))
-            except Exception as e:
-                form.add_error(None, f"Ошибка добавления поста: {str(e)}")
+            form.save()
+            return redirect("index")
+        else:
+            print("Форма невалидна! Ошибки:", form.errors)
     else:
-        form = AddPostForm()
+        form = PostForm()
 
     data = {
         "form": form,

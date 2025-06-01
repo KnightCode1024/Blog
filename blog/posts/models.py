@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class PublishedManager(models.Manager):
@@ -43,7 +44,19 @@ class Post(models.Model):
         verbose_name="Категория",
     )
     tags = models.ManyToManyField(
-        "TagPost", blank=True, related_name="tags", verbose_name="Тэги"
+        "TagPost", blank=True, related_name="Тэг", verbose_name="Тэги"
+    )
+    file = models.FileField(
+        upload_to="files/%Y/%m/%d/",
+        blank=True,
+        null=True,
+        verbose_name="Файл",
+    )
+    image = models.ImageField(
+        upload_to="images/%Y/%m/%d/",
+        blank=True,
+        null=True,
+        verbose_name="Изображение",
     )
 
     objects = models.Manager()
@@ -54,6 +67,15 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("posts:post", kwargs={"post_slug": self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+            counter = 1
+            while Post.objects.filter(slug=self.slug).exists():
+                self.slug = f"{slugify(self.title)}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["-time_create"]

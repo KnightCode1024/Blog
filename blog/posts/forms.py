@@ -1,11 +1,26 @@
 from django import forms
-from django.utils.text import slugify
-from django.db import IntegrityError
+
+from django.core.validators import MinLengthValidator
+from django.utils.deconstruct import deconstructible
+from django.core.exceptions import ValidationError
 
 from posts.models import Post
 
 
-class AddPostForm(forms.ModelForm):
+@deconstructible
+class BanWordValidator:
+    BAN_WORD = "хуй"
+    code = "ban_word"
+
+    def __init__(self, msg=None):
+        self.msg = msg if msg else "Не должно быть слова 'хуй'"
+
+    def __call__(self, value, *args, **kwargs):
+        if self.BAN_WORD in value.lower():
+            raise ValidationError(self.msg, self.code)
+
+
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
@@ -15,14 +30,15 @@ class AddPostForm(forms.ModelForm):
             "is_published",
             "author",
             "cat",
-            "tags",
+            "file",
+            "image",
         ]
         widgets = {
             "title": forms.TextInput(
                 attrs={
                     "class": "form-control bg-dark text-white",
                     "placeholder": "Введите заголовок",
-                }
+                },
             ),
             "summury": forms.Textarea(
                 attrs={
@@ -43,7 +59,7 @@ class AddPostForm(forms.ModelForm):
                     "class": "form-check-input bg-dark text-white",
                 }
             ),
-            "author": forms.Select(
+            "author": forms.TextInput(
                 attrs={
                     "class": "form-select bg-dark text-white",
                 }
@@ -58,32 +74,34 @@ class AddPostForm(forms.ModelForm):
                     "class": "form-select bg-dark text-white",
                 }
             ),
+            "file": forms.FileInput(
+                attrs={
+                    "class": "form-control bg-dark text-white",
+                }
+            ),
+            "image": forms.FileInput(
+                attrs={
+                    "class": "form-control bg-dark text-white",
+                    "accept": "image/*",
+                }
+            ),
         }
 
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        base_slug = slugify(instance.title)
-        instance.slug = base_slug
-
-        for i in range(100):
-            try:
-                if commit:
-                    instance.save()
-                    self.save_m2m()
-                return instance
-            except IntegrityError:
-                instance.slug = (
-                    f"{base_slug}{i+1}" if i > 0 else f"{base_slug}1"
-                )
-
-        return instance
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if len(title) > 50:
+            raise ValidationError("Длина привышает 50 символов")
+        return title
 
 
 class SearchForm(forms.Form):
     search = forms.CharField(
         max_length=255,
-        label="",
         required=False,
+        validators=[
+            MinLengthValidator(2, message="Минимум 2 символа"),
+            # BanWordValidator(),
+        ],
         widget=forms.TextInput(
             attrs={
                 "class": "form-control form-control-dark",
@@ -91,3 +109,10 @@ class SearchForm(forms.Form):
             }
         ),
     )
+
+    def clean_search(self):
+        search = self.cleaned_data["search"]
+        msg = "Не должно быть слова 'хуй'"
+        BAN_WORD = "хуй"
+        if BAN_WORD in search.lower():
+            raise ValidationError(msg)
