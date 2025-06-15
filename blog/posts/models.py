@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from transliterate import slugify as transliterate_slugify
+from django.contrib.auth import get_user_model
 
 
 class PublishedManager(models.Manager):
@@ -37,7 +38,13 @@ class Post(models.Model):
         default=Status.PUBLISHED,
         verbose_name="Статус",
     )
-    author = models.CharField(max_length=50, blank=True, verbose_name="Автор")
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.SET_NULL,
+        related_name="posts",
+        null=True,
+        default=None,
+    )
     cat = models.ForeignKey(
         "Category",
         on_delete=models.PROTECT,

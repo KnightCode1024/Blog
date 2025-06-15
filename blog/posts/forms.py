@@ -28,7 +28,6 @@ class PostForm(forms.ModelForm):
             "summury",
             "content",
             "is_published",
-            "author",
             "cat",
             "file",
             "image",
@@ -57,11 +56,6 @@ class PostForm(forms.ModelForm):
             "is_published": forms.CheckboxInput(
                 attrs={
                     "class": "form-check-input bg-dark text-white",
-                }
-            ),
-            "author": forms.TextInput(
-                attrs={
-                    "class": "form-select bg-dark text-white",
                 }
             ),
             "cat": forms.Select(

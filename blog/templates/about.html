@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<title>{{ title }}</title>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center mb-4">{{ title }}</h1>
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h2 class="card-title">{{ author_name }}</h2>
+                    <p class="card-text">{{ text }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.views import View
 from django.views.generic import ListView, DetailView, FormView, CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from posts.utils import PaginateByMixin
@@ -55,10 +56,15 @@ class Search(FormView):
         return context
 
 
-class AddPost(CreateView):
+class AddPost(LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = "add-post.html"
     success_url = reverse_lazy("index")
+
+    def form_valid(self, form):
+        p = form.save(commit=False)
+        p.author = self.request.user
+        return super().form_valid(form)
 
 
 class Index(PaginateByMixin, ListView):
