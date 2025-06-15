@@ -8,13 +8,21 @@
         <div class="row">
             {% for post in posts %}
             <div class="col-12 col-md-6 col-lg-4 mb-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img src="{% static 'img/not_photo.jpg' %}" class="card-img-top" alt="">
+                <div class="card h-100 d-flex flex-column bg-secondary">
+                    {% if post.image %}
+                    <div class="mt-3">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top">
+                    </div>
+                    {% else %}
+                        <img src="{% static 'img/not_photo.jpg' %}" class="card-img-top" alt="">
+                    {% endif %}
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.summury|safe  }}</p>
+                        <h5 class="card-title text-white">{{ post.title }}</h5>
+                        <p class="card-text text-white">{{ post.summury|safe }}</p>
                         <div class="mt-auto">
-                            <a class="badge badge-primary card-text d-block text-left text-decoration-none" href="{{ post.cat.get_absolute_url }}">{{ post.cat.name }}</a>
+                            <div class="text-left mt-2">
+                                <a class="badge badge-primary card-text d-block text-decoration-none text-white" href="{{ post.cat.get_absolute_url }}">{{ post.cat.name }}</a>
+                            </div>
                             {% for tag in post.tags.all %}
                                 <a class="badge badge-primary card-text d-block text-left text-decoration-none" href="{{ tag.get_absolute_url }}">{{ tag.tag }}</a>
                             {% endfor %}
@@ -27,19 +35,48 @@
             </div>
             {% empty %}
             <div class="col-12">
-                <p class="text-white text-center">В этой категории пока нет постов.</p>
+                <p class="text-white text-center">Постов с этим тегом пока нет.</p>
             </div>
             {% endfor %}
         </div>
     </div>
+
+    {% if is_paginated %}
     <nav>
-        <ul class="pagination pagination-dark">
-            <li class="page-item"><a class="page-link" href="#"><</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">></a></li>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link bg-secondary text-white border-0" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link bg-secondary text-white border-0 opacity-50">&laquo;</span>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item">
+                        <span class="page-link bg-gray-600 text-white border-0">{{ num }}</span>
+                    </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link bg-secondary text-white border-0" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link bg-secondary text-white border-0" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link bg-secondary text-white border-0 opacity-50">&raquo;</span>
+                </li>
+            {% endif %}
         </ul>
     </nav>
+    {% endif %}
 </section>
 {% endblock content %}

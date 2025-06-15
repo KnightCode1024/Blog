@@ -74,6 +74,10 @@ class PostAdmin(admin.ModelAdmin):
 
     save_on_top = True
 
+    class Meta:
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"
+
     @admin.display(description="Краткое описание")
     def brief_info(self, post: Post):
         return f"Описание {len(post.content)} символов."

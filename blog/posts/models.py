@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from transliterate import slugify as transliterate_slugify
 
 
 class PublishedManager(models.Manager):
@@ -44,7 +45,7 @@ class Post(models.Model):
         verbose_name="Категория",
     )
     tags = models.ManyToManyField(
-        "TagPost", blank=True, related_name="Тэг", verbose_name="Тэги"
+        "TagPost", blank=True, related_name="tags", verbose_name="Тэги"
     )
     file = models.FileField(
         upload_to="files/%Y/%m/%d/",
@@ -68,20 +69,26 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("posts:post", kwargs={"post_slug": self.slug})
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-            counter = 1
-            while Post.objects.filter(slug=self.slug).exists():
-                self.slug = f"{slugify(self.title)}-{counter}"
-                counter += 1
-        super().save(*args, **kwargs)
-
     class Meta:
-        ordering = ["-time_create"]
-        indexes = [models.Index(fields=["-time_create"])]
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            try:
+                self.slug = transliterate_slugify(self.title)
+            except Exception:
+                self.slug = slugify(self.title)
+
+            if not self.slug:
+                self.slug = "post"
+
+            counter = 1
+            original_slug = self.slug
+            while Post.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
 
 
 class Category(models.Model):

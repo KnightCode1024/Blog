@@ -8,12 +8,12 @@ from config.settings import DEBUG
 
 urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
-    path("", views.index, name="index"),
+    path("", views.Index.as_view(), name="index"),
     path("posts/", include("posts.urls")),
     path("users/", include("users.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = views.page_not_found
+handler404 = views.PageNotFoundView.as_view()
 
 if DEBUG:
     import debug_toolbar

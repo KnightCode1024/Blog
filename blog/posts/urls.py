@@ -6,33 +6,28 @@ app_name = "posts"
 
 urlpatterns = [
     path(
-        "about/",
-        views.about,
-        name="about",
-    ),
-    path(
         "post/<slug:post_slug>/",
-        views.post,
+        views.ShowPost.as_view(),
         name="post",
     ),
     path(
         "category/<slug:cat_slug>/",
-        views.category,
+        views.Category.as_view(),
         name="category",
     ),
     path(
         "tag/<slug:tag_slug>/",
-        views.tag,
+        views.Tag.as_view(),
         name="tag",
     ),
     path(
         "add/",
-        views.add_post,
+        views.AddPost.as_view(),
         name="add_post",
     ),
     path(
         "search/",
-        views.search,
+        views.Search.as_view(),
         name="search",
     ),
 ]

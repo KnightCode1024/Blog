@@ -100,7 +100,6 @@ class SearchForm(forms.Form):
         required=False,
         validators=[
             MinLengthValidator(2, message="Минимум 2 символа"),
-            # BanWordValidator(),
         ],
         widget=forms.TextInput(
             attrs={
@@ -111,8 +110,7 @@ class SearchForm(forms.Form):
     )
 
     def clean_search(self):
-        search = self.cleaned_data["search"]
-        msg = "Не должно быть слова 'хуй'"
-        BAN_WORD = "хуй"
-        if BAN_WORD in search.lower():
-            raise ValidationError(msg)
+        search = self.cleaned_data.get("search", "").strip()
+        if "хуй" in search.lower():
+            raise ValidationError("Не должно быть запрещённых слов")
+        return search
