@@ -65,7 +65,6 @@ class Index(PaginateByMixin, ListView):
     model = Post
     template_name = "index.html"
     context_object_name = "posts"
-    # paginate_by = 12
 
     def get_queryset(self):
         return (
@@ -80,7 +79,6 @@ class Category(PaginateByMixin, ListView):
     template_name = "posts_by_cat.html"
     context_object_name = "posts"
     allow_empty = False
-    # paginate_by = 12
 
     def get_queryset(self):
         return (

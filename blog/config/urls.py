@@ -10,7 +10,7 @@ urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
     path("", views.Index.as_view(), name="index"),
     path("posts/", include("posts.urls")),
-    path("users/", include("users.urls")),
+    path("users/", include("users.urls"), name="users"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = views.PageNotFoundView.as_view()
