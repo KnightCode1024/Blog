@@ -1,61 +1,48 @@
 {% extends "base.html" %}
-{% load static %}
-
 {% block title %}Мой профиль{% endblock %}
-
 {% block content %}
-<div class="container mt-5">
+<div class="container py-4">
     <div class="row">
-        <div class="col-md-4">
-            <div class="card bg-secondary text-white">
-                <div class="card-body text-center">
-                    <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'img/default_avatar.jpg' %}{% endif %}"
-                         class="rounded-circle img-fluid mb-3"
-                         width="150"
-                         height="150"
-                         alt="Аватар">
-                    <h3>{{ user.username }}</h3>
-                    {% if user.first_name or user.last_name %}
-                        <p>{{ user.first_name }} {{ user.last_name }}</p>
-                    {% endif %}
-                    {% if user.profile.bio %}
-                        <p>{{ user.profile.bio }}</p>
-                    {% endif %}
-                    <a href="#" class="btn btn-outline-light">Редактировать</a>
+        <div class="col-12 mb-4">
+            <h2 class="text-center text-white">Мой профиль</h2>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-outline-light w-100 mt-2">Сохранить изменения</button>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="card bg-secondary text-white">
-                <div class="card-header">
-                    <h4>Мои данные</h4>
-                </div>
+        <!-- Блок постов -->
+        <div class="col-lg-6">
+            <div class="card bg-dark text-white h-100">
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ user_form.as_p }}
-                        {{ profile_form.as_p }}
-                        <button type="submit" class="btn btn-outline-light">Сохранить</button>
-                    </form>
-                </div>
-            </div>
+                    <h4 class="card-title mb-4">Мои посты</h4>
 
-            <div class="card bg-secondary text-white mt-4">
-                <div class="card-header">
-                    <h4>Мои посты</h4>
-                </div>
-                <div class="card-body">
                     {% if posts %}
-                        <div class="list-group">
-                            {% for post in posts %}
-                                <a href="{{ post.get_absolute_url }}" class="list-group-item list-group-item-action bg-dark text-white">
-                                    {{ post.title }}
-                                </a>
-                            {% endfor %}
+                    <div class="list-group">
+                        {% for post in posts %}
+                        <div class="list-group-item bg-dark text-white mb-2 border-dark">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-1">{{ post.title }}</h5>
+                                <small>{{ post.time_create|date:"d.m.Y" }}</small>
+                            </div>
+                            <p class="mb-2">{{ post.summury|truncatechars:100 }}</p>
+                            <div class="text-center mt-2">
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-outline-light me-2">Читать</a>
+                            </div>
                         </div>
+                        {% endfor %}
+                    </div>
                     {% else %}
-                        <p>Вы еще не опубликовали ни одного поста.</p>
+                    <div class="alert alert-secondary">
+                        У вас пока нет опубликованных постов
+                    </div>
                     {% endif %}
                 </div>
             </div>

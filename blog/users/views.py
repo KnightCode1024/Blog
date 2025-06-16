@@ -1,9 +1,15 @@
-from django.shortcuts import render  # get_object_or_404
+from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
+from django.views.generic import CreateView, TemplateView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# from django.views.generic import DetailView
-
-from users.forms import LoginUserForm, RegisterUserForm
+from users.forms import (
+    LoginUserForm,
+    RegisterUserForm,
+    ProfileEditForm,
+)
+from posts.models import Post
 
 
 class Login(LoginView):
@@ -11,33 +17,26 @@ class Login(LoginView):
     template_name = "login.html"
 
 
-def register(request):
+class Register(CreateView):
+    form_class = RegisterUserForm
+    template_name = "register.html"
+    success_url = reverse_lazy("users:login")
 
-    if request.method == "POST":
-        form = RegisterUserForm(request.POST)
+
+class Profile(LoginRequiredMixin, TemplateView):
+    template_name = "profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = ProfileEditForm(instance=self.request.user)
+        context["posts"] = Post.objects.filter(
+            author=self.request.user
+        ).order_by("-time_create")
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ProfileEditForm(request.POST, instance=request.user)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data["password"])
-            user.save()
-            return render(
-                request,
-                "register_done.html",
-                {"form": form},
-            )
-    else:
-        form = RegisterUserForm()
-    return render(
-        request,
-        "register.html",
-        {"form": form},
-    )
-
-
-def profile(request):
-    return render(request, "profile.html")
-
-
-# class Profile(DetailView):
-#     template_name = "profile.html"
-#     slug_url_kwarg = "post_slug"
-#     context_object_name = "post"
+            form.save()
+            return redirect(reverse_lazy("users:profile"))
+        return self.render_to_response(self.get_context_data(form=form))
