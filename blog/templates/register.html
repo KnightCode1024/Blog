@@ -14,32 +14,44 @@
                 <div class="card bg-dark border-light mt-5">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4 text-white">Регистрация</h2>
-                        <form>
+
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            Пожалуйста, исправьте следующие ошибки:
+                            <ul class="mb-0">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <form method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+
+                            {% for field in form %}
                             <div class="mb-3">
-                                <label for="registerUsername" class="form-label text-white">Имя пользователя</label>
-                                <input type="text" class="form-control bg-dark text-white border-light text-white" id="registerUsername" placeholder="Введите имя пользователя" required>
+                                <label for="{{ field.id_for_label }}" class="form-label text-white">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                <div class="form-text text-muted">{{ field.help_text }}</div>
+                                {% endif %}
                             </div>
-                            <div class="mb-3">
-                                <label for="registerEmail" class="form-label text-white">Email</label>
-                                <input type="email" class="form-control bg-dark text-white border-light text-white" id="registerEmail" placeholder="Введите email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerPassword" class="form-label text-white">Пароль</label>
-                                <input type="password" class="form-control bg-dark text-white border-light text-white" id="registerPassword" placeholder="Введите пароль" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerConfirmPassword" class="form-label text-white">Подтвердите пароль</label>
-                                <input type="password" class="form-control bg-dark text-white border-light text-white" id="registerConfirmPassword" placeholder="Подтвердите пароль" required>
-                            </div>
-                            <button type="submit" class="btn btn-outline-light w-100">Зарегистрироваться</button>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-outline-light w-100 mt-3">Зарегистрироваться</button>
                         </form>
+
+                        <div class="text-center mt-4">
+                            <a href="#" class="mx-2"><img src="{% static 'img/vk.png' %}" alt="VK" style="height: 32px;"></a>
+                            <a href="#" class="mx-2"><img src="{% static 'img/github.png' %}" alt="GitHub" style="height: 32px;"></a>
+                            <a href="#" class="mx-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" style="height: 32px;"></a>
+                        </div>
+
                         <div class="text-center mt-3">
-                            <div class="text-center">
-                                <a href="#"><img src="{% static 'img/vk.png' %}" alt=""></a>
-                                <a href="#"><img src="{% static 'img/github.png' %}" alt=""></a>
-                                <a href="#"><img src="{% static 'img/tg.png' %}" alt=""></a>
-                            </div>
-                            <a href="{% url 'users:login' %}" class="text-muted">Уже есть аккаунт? Войдите</a>
+                            <a href="{% url 'users:login' %}" class="text-white text-decoration-none">Уже есть аккаунт? Войдите</a>
                         </div>
                     </div>
                 </div>

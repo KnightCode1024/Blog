@@ -11,36 +11,31 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card bg-dark border-secondary mt-5">
+                <div class="card bg-dark border-light mt-5">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4 text-white">Вход</h2>
 
                         {% if form.errors %}
                         <div class="alert alert-danger">
-                            Неверное имя пользователя или пароль. Пожалуйста, попробуйте снова.
+                            {{ form.get_invalid_login_error }}
                         </div>
                         {% endif %}
 
-                        <form method="post">
+                        <form method="post" class="needs-validation" novalidate>
                             {% csrf_token %}
+
+                            {% for field in form %}
                             <div class="mb-3">
-                                <label for="{{ form.username.id_for_label }}" class="form-label text-white">Имя пользователя</label>
-                                <input type="text"
-                                       name="{{ form.username.name }}"
-                                       id="{{ form.username.id_for_label }}"
-                                       class="form-control bg-secondary text-white border-secondary"
-                                       required>
+                                <label for="{{ field.id_for_label }}" class="form-label text-white">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                <div class="form-text text-muted">{{ field.help_text }}</div>
+                                {% endif %}
                             </div>
-                            <div class="mb-3">
-                                <label for="{{ form.password.id_for_label }}" class="form-label text-white">Пароль</label>
-                                <input type="password"
-                                       name="{{ form.password.name }}"
-                                       id="{{ form.password.id_for_label }}"
-                                       class="form-control bg-secondary text-white border-secondary"
-                                       required>
-                            </div>
+                            {% endfor %}
+
                             <input type="hidden" name="next" value="{{ next }}" />
-                            <button type="submit" class="btn btn-outline-light w-100">Войти</button>
+                            <button type="submit" class="btn btn-outline-light w-100 mt-3">Войти</button>
                         </form>
 
                         <div class="text-center mt-4">
