@@ -3,19 +3,34 @@
 {% block title %}Добавить новый пост{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
+<div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card bg-dark text-white border-secondary">
-                <div class="card-header border-secondary">
-                    <h2 class="mb-0">Добавить новый пост</h2>
+        <div class="col-lg-8">
+            <div class="card bg-dark text-white border-light">
+                <div class="card-header border-light">
+                    <h1 class="text-center mb-4">Добавить новый пост</h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body px-5 py-4">
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-outline-light me-2 text-center">Сохранить</button>
+
+                        <div class="form-error text-danger mb-3">{{ form.non_field_errors }}</div>
+
+                        {% for field in form %}
+                        <div class="mb-4">
+                            <label class="form-label mb-2" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                            <div class="form-error text-danger mt-2">{{ field.errors }}</div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-outline-light px-4 py-2">
+                                Опубликовать пост
+                            </button>
                         </div>
                     </form>
                 </div>

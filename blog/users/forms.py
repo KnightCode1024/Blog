@@ -2,12 +2,12 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
-        label="Логин",
+        label="Логин или Пароль",
         max_length=100,
         widget=forms.TextInput(
             attrs={"class": "form-control bg-dark text-white border-light"}
@@ -102,28 +102,36 @@ class RegisterUserForm(UserCreationForm):
         return email
 
 
-class ProfileEditForm(UserChangeForm):
-    password = None
+class ProfileUserForm(forms.ModelForm):
+    username = forms.CharField(
+        disabled=True,
+        label="Логин",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class": "form-control bg-dark text-white border-light"}
+        ),
+    )
+    email = forms.EmailField(
+        disabled=True,
+        label="E-mail",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control bg-dark text-white border-light"}
+        ),
+    )
 
     class Meta:
         model = get_user_model()
         fields = [
             "username",
+            "email",
             "first_name",
             "last_name",
-            "email",
         ]
         labels = {
-            "username": "Логин",
             "first_name": "Имя",
             "last_name": "Фамилия",
-            "email": "Email",
         }
-
         widgets = {
-            "username": forms.TextInput(
-                attrs={"class": "form-control bg-dark text-white border-light"}
-            ),
             "email": forms.TextInput(
                 attrs={"class": "form-control bg-dark text-white border-light"}
             ),
@@ -134,3 +142,30 @@ class ProfileEditForm(UserChangeForm):
                 attrs={"class": "form-control bg-dark text-white border-light"}
             ),
         }
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="Старый пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control bg-dark text-white border-light",
+            }
+        ),
+    )
+    new_password1 = forms.CharField(
+        label="Новый пароль",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control bg-dark text-white border-light",
+            }
+        ),
+    )
+    new_password2 = forms.CharField(
+        label="Подтверждение пароля",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control bg-dark text-white border-light",
+            }
+        ),
+    )

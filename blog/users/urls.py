@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 
+
 from users import views
 
 app_name = "users"
@@ -25,5 +26,15 @@ urlpatterns = [
         "profile/",
         views.Profile.as_view(),
         name="profile",
+    ),
+    path(
+        "password-change/",
+        views.PasswordChange.as_view(),
+        name="password_change",
+    ),
+    path(
+        "password-change/done/",
+        views.PasswordChangeDone.as_view(),
+        name="password_change_done",
     ),
 ]

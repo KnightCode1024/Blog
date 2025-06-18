@@ -1,15 +1,20 @@
-from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.views import (
+    PasswordChangeView,
+    PasswordChangeDoneView,
+)
+
 
 from users.forms import (
     LoginUserForm,
     RegisterUserForm,
-    ProfileEditForm,
+    ProfileUserForm,
+    UserPasswordChangeForm,
 )
-from posts.models import Post
 
 
 class Login(LoginView):
@@ -23,20 +28,23 @@ class Register(CreateView):
     success_url = reverse_lazy("users:login")
 
 
-class Profile(LoginRequiredMixin, TemplateView):
+class Profile(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = ProfileUserForm
     template_name = "profile.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form"] = ProfileEditForm(instance=self.request.user)
-        context["posts"] = Post.objects.filter(
-            author=self.request.user
-        ).order_by("-time_create")
-        return context
+    def get_success_url(self):
+        return reverse_lazy("users:profile", args=[self.request.user.pk])
 
-    def post(self, request, *args, **kwargs):
-        form = ProfileEditForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse_lazy("users:profile"))
-        return self.render_to_response(self.get_context_data(form=form))
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class PasswordChange(PasswordChangeView):
+    form_class = UserPasswordChangeForm
+    success_url = reverse_lazy("users:password_change_done")
+    template_name = "password_change_form.html"
+
+
+class PasswordChangeDone(PasswordChangeDoneView):
+    template_name = "password_change_done.html"
