@@ -143,5 +143,7 @@ LOGIN_URL = reverse_lazy("users:login")
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "users.authentication.EmailAuthBackend"
+    "users.authentication.EmailAuthBackend",
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
