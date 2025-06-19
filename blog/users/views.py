@@ -32,9 +32,10 @@ class Profile(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
     template_name = "profile.html"
+    success_url = reverse_lazy("users:profile")
 
     def get_success_url(self):
-        return reverse_lazy("users:profile", args=[self.request.user.pk])
+        return reverse_lazy("users:profile")
 
     def get_object(self, queryset=None):
         return self.request.user

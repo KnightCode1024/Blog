@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
+import datetime
+
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
@@ -118,12 +120,20 @@ class ProfileUserForm(forms.ModelForm):
             attrs={"class": "form-control bg-dark text-white border-light"}
         ),
     )
+    this_year = datetime.date.today().year
+    date_birth = forms.DateField(
+        widget=forms.SelectDateWidget(
+            years=tuple(range(this_year - 100, this_year - 5))
+        )
+    )
 
     class Meta:
         model = get_user_model()
         fields = [
+            "photo",
             "username",
             "email",
+            "date_birth",
             "first_name",
             "last_name",
         ]
