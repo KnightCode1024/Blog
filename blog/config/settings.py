@@ -11,7 +11,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
-DEBUG = os.getenv("DJANGO_DEBUG") in "1", "y", "yes", "t", "true", "True"
+DEBUG = os.getenv("DJANGO_DEBUG") in (
+    "1",
+    "y",
+    "yes",
+    "t",
+    "true",
+    "True",
+)
 
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", default="*").split(",")
@@ -146,4 +153,21 @@ AUTHENTICATION_BACKENDS = [
     "users.authentication.EmailAuthBackend",
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")  # Без пробела
+EMAIL_PORT = os.getenv("EMAIL_PORT", "465")  # Добавьте значение по умолчанию
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL") in (
+    "1",
+    "y",
+    "yes",
+    "t",
+    "true",
+    "True",
+)
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER

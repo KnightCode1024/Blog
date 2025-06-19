@@ -7,7 +7,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
-        label="Логин или Пароль",
+        label="Логин или Почта",
         max_length=100,
         widget=forms.TextInput(
             attrs={"class": "form-control bg-dark text-white border-light"}
