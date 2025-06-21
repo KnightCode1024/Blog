@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load my_tags %}
 {% block content %}
+
+
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -30,6 +33,18 @@
                             <a class="badge badge-primary card-text d-block text-left text-decoration-none" href="{{ tag.get_absolute_url }}">{{ tag.tag }}</a>
                         {% endfor %}
                         <span class="">Автор: {{ post.author }}</span>
+
+                        {% if user.is_authenticated %}
+                        {% if user == post.author or user.is_staff %}
+                        <div class="container mt-5">
+                            <div class="text-center">
+                                <a href="{% url 'posts:edit_post' post.slug %}" class="btn btn-outline-light">Редактировать</a>
+                                <a href="{% url 'posts:delete_post' post.slug %}" class="btn btn-outline-light">Удалить</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

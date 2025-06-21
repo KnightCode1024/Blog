@@ -26,6 +26,16 @@ urlpatterns = [
         name="add_post",
     ),
     path(
+        "post/<slug:post_slug>/edit/",
+        views.UpdatePost.as_view(),
+        name="edit_post",
+    ),
+    path(
+        "post/<slug:post_slug>/delete/",
+        views.DeletePost.as_view(),
+        name="delete_post",
+    ),
+    path(
         "search/",
         views.Search.as_view(),
         name="search",

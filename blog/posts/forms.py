@@ -80,6 +80,12 @@ class PostForm(forms.ModelForm):
                 }
             ),
         }
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"
+        permissions = [
+            ("change_post", "Can change post"),
+            ("delete_post", "Can delete post"),
+        ]
 
     def clean_title(self):
         title = self.cleaned_data["title"]

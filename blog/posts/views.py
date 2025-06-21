@@ -2,9 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from django import http
 from django.db.models import Q
 from django.views import View
-from django.views.generic import ListView, DetailView, FormView, CreateView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    UpdateView,
+    FormView,
+    CreateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 
 
 from posts.utils import PaginateByMixin
@@ -56,15 +66,43 @@ class Search(FormView):
         return context
 
 
-class AddPost(LoginRequiredMixin, CreateView):
+class AddPost(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = "add-post.html"
     success_url = reverse_lazy("index")
+    permission_required = "post.add_post"
 
     def form_valid(self, form):
         p = form.save(commit=False)
         p.author = self.request.user
         return super().form_valid(form)
+
+
+class UpdatePost(PermissionRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = "add-post.html"
+    success_url = reverse_lazy("index")
+    permission_required = "posts.change_post"
+    slug_url_kwarg = "post_slug"
+    slug_field = "slug"
+
+    def has_permission(self):
+        post = self.get_object()
+        return post.author == self.request.user or super().has_permission()
+
+
+class DeletePost(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "delete_post.html"
+    success_url = reverse_lazy("index")
+    permission_required = "posts.delete_post"
+    slug_url_kwarg = "post_slug"
+    slug_field = "slug"
+
+    def has_permission(self):
+        post = self.get_object()
+        return post.author == self.request.user or super().has_permission()
 
 
 class Index(PaginateByMixin, ListView):
