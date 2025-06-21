@@ -39,9 +39,9 @@
                         </form>
 
                         <div class="text-center mt-4">
-                            <a href="#" class="mx-2"><img src="{% static 'img/vk.png' %}" alt="VK"></a>
-                            <a href="#" class="mx-2"><img src="{% static 'img/github.png' %}" alt="GitHub"></a>
-                            <a href="#" class="mx-2"><img src="{% static 'img/tg.png' %}" alt="Telegram"></a>
+                            <a href="{% url 'social:begin' 'github' %}" class="mx-2"><img src="{% static 'img/github.png' %}" alt="GitHub"></a>
+                            <!-- <a href="#" class="mx-2"><img src="{% static 'img/tg.png' %}" alt="Telegram"></a>
+                            <a href="#" class="mx-2"><img src="{% static 'img/vk.png' %}" alt="VK"></a> -->
                         </div>
                         <div class="text-center mt-2">
                             <a href="{% url 'users:register' %}" class="text-white text-decoration-none">Нет аккаунта? Зарегистрируйтесь</a>

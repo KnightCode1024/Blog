@@ -52,10 +52,9 @@
                             {{ form.date_birth }}
                         </div>
                         <div class="mt-4">
-                            <a href="{% url 'users:password_change' %}"
-                               class="btn btn-outline-light w-100 mt-2">
-                                Сменить пароль
-                            </a>
+                            {% if not user.social_auth.exists %}
+                            <a href="{% url 'users:password_change' %}" class="btn btn-outline-light w-100 mt-2">Сменить пароль</a>
+                            {% endif %}
                             <button type="submit" class="btn btn-outline-light w-100 mt-2">
                                 Сохранить изменения
                             </button>

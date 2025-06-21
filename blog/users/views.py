@@ -1,10 +1,7 @@
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import (
     PasswordChangeView,
@@ -31,12 +28,11 @@ class Register(CreateView):
     success_url = reverse_lazy("users:login")
 
 
-class Profile(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
+class Profile(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
     template_name = "profile.html"
     success_url = reverse_lazy("users:profile")
-    permission_required = "post.change_post"
 
     def get_success_url(self):
         return reverse_lazy("users:profile")

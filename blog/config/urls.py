@@ -7,10 +7,32 @@ from posts import views
 from config.settings import DEBUG
 
 urlpatterns = [
-    path("admin/", admin.site.urls, name="admin"),
-    path("", views.Index.as_view(), name="index"),
-    path("posts/", include("posts.urls")),
-    path("users/", include("users.urls"), name="users"),
+    path(
+        "admin/",
+        admin.site.urls,
+        name="admin",
+    ),
+    path(
+        "",
+        views.Index.as_view(),
+        name="index",
+    ),
+    path(
+        "posts/",
+        include("posts.urls"),
+    ),
+    path(
+        "users/",
+        include("users.urls"),
+        name="users",
+    ),
+    path(
+        "social-auth/",
+        include(
+            "social_django.urls",
+            namespace="social",
+        ),
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = views.PageNotFoundView.as_view()

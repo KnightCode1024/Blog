@@ -31,8 +31,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # APPS
     "posts.apps.PostsConfig",
     "users.apps.UsersConfig",
+    # LIBS
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -149,6 +152,7 @@ LOGOUT_REDIRECT_URL = reverse_lazy("index")
 LOGIN_URL = reverse_lazy("users:login")
 
 AUTHENTICATION_BACKENDS = [
+    "social_core.backends.github.GithubOAuth2",
     "django.contrib.auth.backends.ModelBackend",
     "users.authentication.EmailAuthBackend",
 ]
@@ -173,3 +177,8 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = "users.User"
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+SOCIAL_AUTH_GITHUB_KEY = os.getenv("SOCIAL_AUTH_GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = os.getenv("SOCIAL_AUTH_GITHUB_SECRET")
