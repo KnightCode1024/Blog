@@ -1,4 +1,4 @@
-name: Linting
+name: flake8
 
 on: [push]
 
