@@ -33,6 +33,11 @@ urlpatterns = [
             namespace="social",
         ),
     ),
+    path(
+        'captcha/',
+        include('captcha.urls'),
+        name="captcha",
+        ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = views.PageNotFoundView.as_view()

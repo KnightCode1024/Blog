@@ -116,6 +116,7 @@ class ProfileUserForm(forms.ModelForm):
     email = forms.EmailField(
         disabled=True,
         label="E-mail",
+        required=False,
         widget=forms.EmailInput(
             attrs={"class": "form-control bg-dark text-white border-light"}
         ),

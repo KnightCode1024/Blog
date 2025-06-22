@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     # LIBS
     "social_django",
+    "captcha",
+    "django.forms",
 ]
 
 MIDDLEWARE = [
@@ -60,6 +62,8 @@ if DEBUG:
 
 ROOT_URLCONF = "config.urls"
 
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -73,6 +77,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -153,6 +159,7 @@ LOGIN_URL = reverse_lazy("users:login")
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.github.GithubOAuth2",
+    "social_core.backends.vk.VKOAuth2",
     "django.contrib.auth.backends.ModelBackend",
     "users.authentication.EmailAuthBackend",
 ]
