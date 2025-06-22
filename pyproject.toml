@@ -3,19 +3,3 @@ line-length = 79
 
 [tool.isort]
 profile = "black"
-
-exclude = '''
-/(
-    \.git
-  | .tox
-  | .venv
-  | venv
-  | build
-  | dist
-  )/
-'''
-[tool.flake8]
-max-line-length = 79
-per-file-ignores = [
-    "*/migrations/*.py:E501,W503",
-]
