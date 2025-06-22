@@ -37,10 +37,6 @@ INSTALLED_APPS = [
     # LIBS
     "social_django",
     "captcha",
-<<<<<<< HEAD
-=======
-    "django.forms",
->>>>>>> 7703c07c22e6453334ace8cd9d19b2c7df301387
 ]
 
 MIDDLEWARE = [
@@ -65,7 +61,7 @@ if DEBUG:
 
 ROOT_URLCONF = "config.urls"
 
-FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 TEMPLATES = [
     {
@@ -86,6 +82,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
 
 WSGI_APPLICATION = "config.wsgi.application"
 
