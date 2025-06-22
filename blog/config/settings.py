@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     # LIBS
     "social_django",
+    "captcha",
 ]
 
 MIDDLEWARE = [

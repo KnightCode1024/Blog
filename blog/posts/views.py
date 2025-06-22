@@ -19,7 +19,7 @@ from django.contrib.auth.mixins import (
 
 from posts.utils import PaginateByMixin
 from posts.models import Post
-from posts.forms import PostForm, SearchForm
+from posts.forms import PostForm, SearchForm, ContactForm
 
 
 class PageNotFoundView(View):
@@ -66,11 +66,10 @@ class Search(FormView):
         return context
 
 
-class AddPost(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+class AddPost(LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = "add-post.html"
     success_url = reverse_lazy("index")
-    permission_required = "post.add_post"
 
     def form_valid(self, form):
         p = form.save(commit=False)
@@ -78,12 +77,11 @@ class AddPost(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UpdatePost(PermissionRequiredMixin, UpdateView):
+class UpdatePost(UpdateView):
     model = Post
     form_class = PostForm
     template_name = "add-post.html"
     success_url = reverse_lazy("index")
-    permission_required = "posts.change_post"
     slug_url_kwarg = "post_slug"
     slug_field = "slug"
 
@@ -159,3 +157,13 @@ class ShowPost(DetailView):
         return get_object_or_404(
             Post.published, slug=self.kwargs[self.slug_url_kwarg]
         )
+
+
+class Contact(LoginRequiredMixin, FormView):
+    form_class = ContactForm
+    template_name = "contact.html"
+    success_url = reverse_lazy("index")
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)

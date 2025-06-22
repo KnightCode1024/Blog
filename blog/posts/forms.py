@@ -1,8 +1,8 @@
 from django import forms
-
 from django.core.validators import MinLengthValidator
 from django.utils.deconstruct import deconstructible
 from django.core.exceptions import ValidationError
+from captcha.fields import CaptchaField
 
 from posts.models import Post
 
@@ -114,3 +114,33 @@ class SearchForm(forms.Form):
         if "хуй" in search.lower():
             raise ValidationError("Не должно быть запрещённых слов")
         return search
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(
+        label="Имя",
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control bg-dark text-white border-light",
+            }
+        ),
+    )
+    email = forms.EmailField(
+        label="E-mail",
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-control bg-dark text-white border-light",
+            }
+        ),
+    )
+    content = forms.CharField(
+        label="Обращение",
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control bg-dark text-white border-light",
+                "rows": 5,
+            }
+        ),
+    )
+    captcha = CaptchaField()
