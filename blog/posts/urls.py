@@ -40,5 +40,9 @@ urlpatterns = [
         views.Search.as_view(),
         name="search",
     ),
-    path('contact/', views.Contact.as_view(), name='contact',),
+    path(
+        "contact/",
+        views.Contact.as_view(),
+        name="contact",
+    ),
 ]

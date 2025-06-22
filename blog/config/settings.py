@@ -83,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
+FORM_RENDERER = "django.forms.renderers.DjangoTemplates"
 
 WSGI_APPLICATION = "config.wsgi.application"
 
