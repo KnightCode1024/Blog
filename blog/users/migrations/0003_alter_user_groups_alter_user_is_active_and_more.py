@@ -31,7 +31,9 @@ class Migration(migrations.Migration):
             field=models.BooleanField(
                 default=True,
                 help_text=("Designates whether this user should be treated as"
-                           "active. Unselect this instead of deleting accounts."),
+                           "active. Unselect this instead"
+                           "of deleting accounts."
+                           ),
                 verbose_name="active",
             ),
         ),
