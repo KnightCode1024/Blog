@@ -178,4 +178,8 @@ cython_debug/
 media/
 # CERT
 cert.key
+<<<<<<< HEAD
 cert.crt
+=======
+cert.crt
+>>>>>>> 7703c07c22e6453334ace8cd9d19b2c7df301387

@@ -70,6 +70,7 @@ class AddPost(LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = "add-post.html"
     success_url = reverse_lazy("index")
+    permission_required = "post.add_post"
 
     def form_valid(self, form):
         p = form.save(commit=False)
