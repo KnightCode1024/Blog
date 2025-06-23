@@ -1,0 +1,20 @@
+[
+{
+  "model": "posts.post",
+  "pk": 2,
+  "fields": {
+    "title": "fgdvg",
+    "slug": "post",
+    "summury": "fgdfgf",
+    "content": "dfgfgdgff",
+    "time_create": "2025-06-21T08:18:09.504Z",
+    "time_update": "2025-06-21T08:19:38.260Z",
+    "is_published": true,
+    "author": 1,
+    "cat": 1,
+    "file": "",
+    "image": "images/2025/06/21/plan.jpg",
+    "tags": []
+  }
+}
+]

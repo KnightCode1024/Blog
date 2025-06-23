@@ -1,0 +1,10 @@
+[
+{
+  "model": "posts.category",
+  "pk": 1,
+  "fields": {
+    "name": "природа",
+    "slug": "priroda"
+  }
+}
+]
