@@ -3,20 +3,19 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx-server
-    restart: always
+    restart: unless-stopped
     networks:
       - dbnet
-    expose:
-      - 8088
     ports:
-      - "80:8088"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./blog/staticfiles:/app/www/blog/staticfiles
-      #
-      - ./blog/static:/app/www/blog/static
       - ./blog/media:/app/www/blog/media
       - ./blog/logs:/app/www/blog/logs
       - ./nginx:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - blog
 
@@ -62,6 +61,15 @@ services:
     depends_on:
       - postgres
       - redis
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: sh -c "certbot certonly --webroot --webroot-path=/var/www/certbot --email n17k17@yandex.ru --agree-tos --no-eff-email -d kirillblog.ru -d www.kirillblog.ru --non-interactive --keep-until-expiring"
+    depends_on:
+      - nginx
 
 networks:
   dbnet:
