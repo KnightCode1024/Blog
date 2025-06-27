@@ -1,0 +1,72 @@
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    restart: always
+    networks:
+      - dbnet
+    expose:
+      - 8088
+    ports:
+      - "80:8088"
+    volumes:
+      - ./blog/staticfiles:/app/www/blog/staticfiles
+      #
+      - ./blog/static:/app/www/blog/static
+      - ./blog/media:/app/www/blog/media
+      - ./blog/logs:/app/www/blog/logs
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - blog
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: psgr
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - dbnet
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    networks:
+      - dbnet
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  blog:
+    build: ./blog
+    image: blog
+    container_name: blog
+    restart: always
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    links:
+      - "postgres:dbps"
+    networks:
+      - dbnet
+    volumes:
+      - ./sitewomen:/app/www/blog
+    ports:
+        - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+
+networks:
+  dbnet:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:

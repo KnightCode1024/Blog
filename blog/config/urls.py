@@ -6,7 +6,7 @@ from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps.views import sitemap
 
 from posts import views
-from config.settings import DEBUG
+# from config.settings import DEBUG
 from posts.sitemaps import PostSitemap, CategorySitemap
 
 sitemaps = {
@@ -59,7 +59,7 @@ urlpatterns = [
 
 handler404 = views.PageNotFoundView.as_view()
 
-if DEBUG:
-    import debug_toolbar
+# if DEBUG:
+#     import debug_toolbar
 
-    urlpatterns += (path("__debug__/", include(debug_toolbar.urls)),)
+#     urlpatterns += (path("__debug__/", include(debug_toolbar.urls)),)
